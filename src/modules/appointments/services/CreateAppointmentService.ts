@@ -5,6 +5,14 @@ import AppError from '@shared/errors/AppError';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
+// SOLID
+
+// # Single Responsability Principle
+// Open Closed Principle (ainda não foi falado)
+// # Liskov Substitution Principle
+// Interface Segregation Principle (ainda não foi falado)
+// # Dependency Invertion Principle
+
 interface IRequest {
   provider_id: string;
   date: Date;
