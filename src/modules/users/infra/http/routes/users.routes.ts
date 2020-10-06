@@ -10,11 +10,11 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);
-const usersRepository = new UsersRepository();
 
 usersRouter.post('/', async (request, response) => {
   const { name, email, password } = request.body;
 
+  const usersRepository = new UsersRepository();
   const createUser = new CreateUserService(usersRepository);
 
   const user = await createUser.execute({
@@ -23,9 +23,15 @@ usersRouter.post('/', async (request, response) => {
     password,
   });
 
-  delete user.password;
+  const userWithoutPassword = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    created_at: user.created_at,
+    updated_at: user.updated_at,
+  };
 
-  return response.json(user);
+  return response.json(userWithoutPassword);
 });
 
 usersRouter.patch(
@@ -33,6 +39,7 @@ usersRouter.patch(
   ensureAuthenticated,
   upload.single('avatar'),
   async (request, response) => {
+    const usersRepository = new UsersRepository();
     const updateUserAvatar = new UpdateUserAvatarService(usersRepository);
 
     const user = await updateUserAvatar.execute({
@@ -40,9 +47,15 @@ usersRouter.patch(
       avatarFilename: request.file.filename,
     });
 
-    delete user.password;
+    const userWithoutPassword = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
 
-    return response.json(user);
+    return response.json(userWithoutPassword);
   },
 );
 
