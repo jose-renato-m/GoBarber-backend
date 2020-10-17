@@ -1,25 +1,70 @@
-<h1 align="center">
-  <img src="https://ik.imagekit.io/dfw3q47dv0/GoBarber_logo_dSISgtN1T.png">
-</h1>
+# Recuperação de senha
 
-## 📝 Description
-<p>GoBarber is an app for barbershops' schedule services.</p>
-<p>This repo aims to save the backend of this app, in order to integrate later the frontend and mobile features, which will also be saved in separated repos.</p>
+**RF (Requisitos Funcionais)**
 
----
+- O usuário deve poder recuperar sua senha informando o seu e-mail;
+- O usuário deve receber um e-mail com instruções de recuperação de senha;
+- O usuário deve poder resetar sua senha;
 
-## 💻 Used Technologies
+**RNF (Requisitos Não Funcionais)**
 
-GoBarber's backend has been developed using the following technologies:
+- Utilizar Mailtrap para testar envios em ambiente de dev;
+- Utilizar Amazon SES para envios em produção;
+- O envio de e-mails deve acontecer em segundo plano (background job);
 
-- [Node.js](https://nodejs.org/en/)
-- [TypeORM](https://typeorm.io/#/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [express](https://www.npmjs.com/package/express)
-- [postgreSQL](https://www.postgresql.org/)
-- [Docker](https://www.docker.com/)
-- [DBeaver](https://dbeaver.io/)
+**RN (Regras de Negócios)**
 
----
+- O link enviado por e-mail para resetar senha, deve expirar em 2h;
+- O usuário precisa confirmar a nova senha ao resetar sua senha;
 
-Made with 💙 by José Renato Montagnana 👋🏻 [Get in touch!](https://www.linkedin.com/in/joserenato-devfullstack/)
+# Atualização do perfil
+
+**RF**
+
+- O usuário deve poder atualizar seu nome, e-mail e senha;
+
+**RN**
+
+- O usuário não pode alterar seu e-mail para um e-mail já utilizado;
+- Para atualizar sua senha, o usuário deve informar a senha antiga;
+- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
+
+# Painel do prestador
+
+**RF**
+
+- O usuário deve poder listar seus agendamentos de um dia específico;
+- O prestador deve receber uma notificação sempre que houver um novo agendamento;
+- O prestador deve poder visualizar as notificações não lidas;
+
+**RNF**
+
+- Os agendamentos do prestador no dia devem ser armazenados em cash;
+- As notificações do prestador devem ser armazenadas no MongoDB;
+- As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
+
+**RN**
+
+- A notificação deve ter um status de lida ou não-lida para que o prestador possa controlar;
+
+# Agendamento de serviços
+
+**RF**
+
+- O usuário deve poder listar todos os prestadores de serviço cadastrados;
+- O usuário deve poder listar os dias de um mês com pelo menos um horário disponível de um prestador;
+- O usuário deve poder listar horários disponíveis em um dia específico de um prestador;
+- O usuário deve poder realizar um novo agendamento com um prestador;
+
+**RNF**
+
+- A listagem de prestadores deve ser armazenada em cache;
+
+**RN**
+
+- Cada agendamento deve durar 1h exatamente;
+- Os agendamentos devem estar disponíveis entre 8h às 18h (Primeiro às 8h, último às 17h);
+- O usuário não pode agendar em um horário já ocupado;
+- O usuário não pode agendar em um horário que já passou;
+- O usuário não pode agendar serviços consigo mesmo;
+
