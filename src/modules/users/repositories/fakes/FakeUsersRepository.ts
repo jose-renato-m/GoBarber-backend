@@ -10,6 +10,7 @@ class FakeUsersRepository implements IUsersRepository {
 
   public async findById(id: string): Promise<User | undefined> {
     const findUser = this.users.find(user => user.id === id);
+
     return findUser;
   }
 
@@ -17,6 +18,16 @@ class FakeUsersRepository implements IUsersRepository {
     const findUser = this.users.find(user => user.email === email);
 
     return findUser;
+  }
+
+  public async findAllProviders(except_user_id?: string): Promise<User[]> {
+    let { users } = this;
+
+    if (except_user_id) {
+      users = this.users.filter(user => user.id !== except_user_id);
+    }
+
+    return users;
   }
 
   public async create(userData: ICreateUserDTO): Promise<User> {
