@@ -34,8 +34,8 @@ describe('ListProviderDayAvailability', () => {
       expect.arrayContaining([
         { hour: 8, available: false },
         { hour: 9, available: true },
-        { day: 10, available: false },
-        { day: 11, available: true },
+        { hour: 10, available: false },
+        { hour: 11, available: true },
       ]),
     );
   });
